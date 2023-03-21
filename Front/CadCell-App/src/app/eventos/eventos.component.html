@@ -1,8 +1,44 @@
-<h1>Cadastro de Clientes</h1>
+<h4>Cadastro de Clientes</h4>
+<hr>
 
-<div *ngFor="let evento of eventos">
+<div class="form-inline">
+  <div class="form-group mb-2">
+    <input type="text"
+    class="form-control mr-2"
+    placeholder="buscar"
+    [(ngModel)]="filtroLista">
+  </div>
+</div>
+<h3>Filtro: {{filtroLista}}</h3>
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <th>#</th>
+    <th>Nome</th>
+    <th>Equipamento</th>
+    <th>Endereço</th>
+    <th>Defeito</th>
+    <th>Data</th>
+    <th>Opções</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let evento of eventosFiltrados">
+      <td>{{evento.eventoId}}</td>
+      <td>{{evento.cliente}}</td>
+      <td>{{evento.equipamento}}</td>
+      <td>{{evento.endereco}}</td>
+      <td>{{evento.imageUrl}}</td>
+      <td>{{evento.data}}</td>
+      <td>
+        <button type="button" class="btn btn-primary btn-sm mr-2">Editar</button>
+        <button type="button" class="btn btn-danger btn-sm">Excluir</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- <div *ngFor="let evento of eventos">
   <p><b>Clientes: </b>{{evento.cliente}}</p>
   <p><b>Equipamento: </b>{{evento.equipamento}}</p>
   <hr>
-</div>
-
+</div> -->
