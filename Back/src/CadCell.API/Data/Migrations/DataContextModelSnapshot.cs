@@ -15,13 +15,13 @@ namespace CadCell.API.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.2");
 
-            modelBuilder.Entity("CadCell.API.model.Evento", b =>
+            modelBuilder.Entity("CadCell.API.model.Cliente", b =>
                 {
-                    b.Property<int>("EventoId")
+                    b.Property<int>("ClienteId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Cliente")
+                    b.Property<string>("Clientes")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Data")
@@ -36,9 +36,9 @@ namespace CadCell.API.Data.Migrations
                     b.Property<string>("ImageURL")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("EventoId");
+                    b.HasKey("ClienteId");
 
-                    b.ToTable("Eventos");
+                    b.ToTable("Clientes");
                 });
 #pragma warning restore 612, 618
         }

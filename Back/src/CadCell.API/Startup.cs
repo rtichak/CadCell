@@ -2,17 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CadCell.API.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+
+//using CadCell.Application.Interface;
+using CadCell.Application;
+using CadCell.Persistence.InterfaceRepositorio;
+using CadCell.Persistence;
+using CadCell.Persistence.Repositorio;
 
 namespace CadCell.API
 {
@@ -23,16 +27,18 @@ namespace CadCell.API
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get;}
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(
-                context => context.UseSqlite(Configuration.GetConnectionString("Default"))
-            );
+
             services.AddControllers();
-            services.AddCors();
+
+            services.AddScoped<IClienteService, ClienteService>();
+            services.AddScoped<IGeralRepository, GeralRepository>();
+            services.AddScoped<IClienteRepository, ClienteRepository>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CadCell.API", Version = "v1" });
@@ -54,10 +60,6 @@ namespace CadCell.API
             app.UseRouting();
 
             app.UseAuthorization();
-
-            app.UseCors(x => x.AllowAnyHeader()
-                              .AllowAnyMethod()
-                              .AllowAnyOrigin());
 
             app.UseEndpoints(endpoints =>
             {
